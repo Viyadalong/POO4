@@ -42,22 +42,26 @@ class Car extends Vehicle
     {
         $this->energyLevel = $energyLevel;
     }
-    public function getParkBrake():bool
+    public function getParkBrake(): bool
     {
-        return $this->hasParkBrake;
+        return $this->getParkBrake;
     }
-
-    public function setParkBrake(bool $hasParkBrake)
+    public function setParkBrake(bool $hasParkBrake): bool
     {
-        $this->hasParkBrake = $hasParkBrake;
+        return $this->setParkBrake=$hasParkBrake;
     }
 
     public function start()
     {
-        if ($this->hasParkBrake === true) {
-            throw new Exception("Le frein à main est mis");
+        try {
+            if ($this->setParkBrake == true) {
+                throw new Exception('Park Brake is on');
+            }
+        } catch(Exception $e){
+        echo "Exception received  : you can't drive ". $e->getMessage();
+        return $this->setParkBrake(FALSE);
+        }finally{
+        echo "Ma voiture roule comme un donut";
         }
-        $this->currentSpeed = 1;
-        return "Start !";
     }
 }
